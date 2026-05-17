@@ -1,0 +1,14 @@
+node_modules
+dist
+.git
+.github
+.idea
+.vscode
+.cache
+coverage
+playwright-report
+test-results
+.playwright
+*.log
+.DS_Store
+docs/screenshot-*.png
