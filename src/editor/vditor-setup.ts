@@ -33,9 +33,15 @@ export function createVditor(opts: VditorInitOpts): Promise<VditorWrapper> {
     const resolvedTheme = resolveTheme(opts.settings.theme);
     const t0 = performance.now();
 
+    // Vditor builds asset URLs as `${cdn}/dist/...`. Resolve relative to the
+    // app's BASE_URL so the same build works at any base path (root for nginx,
+    // `/inkmo/` for GitHub Pages). BASE_URL always ends in `/`, strip it so
+    // Vditor's `${cdn}/dist` interpolation doesn't double-slash.
+    const cdnPath = `${import.meta.env.BASE_URL}vditor`.replace(/\/+$/, '');
+
     const instance = new Vditor(opts.container, {
       mode: opts.settings.editorMode,
-      cdn: '/vditor', // local-served Vditor assets
+      cdn: cdnPath,
       width: '100%',
       height: '100%',
       placeholder: '开始书写… 也可拖放 .md 文件到这里',
