@@ -2,7 +2,7 @@
 
 import { createVditor, WELCOME_DOC, type VditorWrapper } from './editor/vditor-setup';
 import { applyTheme, currentTheme, onThemeChange, resolveTheme } from './editor/theme';
-import { nextMode } from './editor/modes';
+import { nextMode, MODE_LABEL } from './editor/modes';
 import { logger, setLogLevel } from './lib/logger';
 import {
   DEFAULT_SETTINGS,
@@ -106,10 +106,9 @@ export async function bootstrap(root: HTMLElement): Promise<void> {
   let currentSettings: Settings = settings;
   const persist = debounce((markdown: string): void => {
     const ok = saveState({ draft: markdown, settings: currentSettings });
-    setDraftStatus(
-      statusbarRefs,
-      ok ? `草稿已保存 · ${new Date().toLocaleTimeString()}` : '草稿保存失败',
-    );
+    // 24h time without AM/PM — looks tighter and is locale-agnostic.
+    const stamp = new Date().toLocaleTimeString('zh-CN', { hour12: false });
+    setDraftStatus(statusbarRefs, ok ? `草稿已保存 · ${stamp}` : '草稿保存失败');
   }, 500);
 
   // ── Vditor instance
@@ -185,7 +184,7 @@ export async function bootstrap(root: HTMLElement): Promise<void> {
       if (err instanceof FileLoadError) toast(err.message, 'warn');
       else {
         log.error('file load unknown error', { err: String(err) });
-        toast('读取失败', 'error');
+        toast('文件读取失败', 'error');
       }
     }
   }
@@ -197,20 +196,20 @@ export async function bootstrap(root: HTMLElement): Promise<void> {
   async function onNew(): Promise<void> {
     const ok = await openDialog({
       title: '新建',
-      body: '将清空当前编辑器内容并重置为欢迎文档。确认继续？',
+      body: '将清空当前内容并恢复欢迎文档。继续？',
       okLabel: '清空',
     });
     if (!ok) return;
     vditor?.setValue(WELCOME_DOC);
     setMetrics(statusbarRefs, WELCOME_DOC);
     persist(WELCOME_DOC);
-    toast('已重置', 'info');
+    toast('已恢复欢迎文档', 'info');
   }
 
   function onDownload(): void {
     const md = vditor?.getValue() ?? '';
-    if (!md) {
-      toast('编辑器内容为空', 'warn');
+    if (!md.trim()) {
+      toast('没有内容可下载', 'warn');
       return;
     }
     const r = saveMarkdown(md);
@@ -219,8 +218,8 @@ export async function bootstrap(root: HTMLElement): Promise<void> {
 
   async function onExportPdf(): Promise<void> {
     const html = vditor?.getHTML();
-    if (!html) {
-      toast('编辑器内容为空', 'warn');
+    if (!html?.trim()) {
+      toast('没有内容可导出', 'warn');
       return;
     }
     toast('正在打开打印对话框…', 'info', 2000);
@@ -237,7 +236,7 @@ export async function bootstrap(root: HTMLElement): Promise<void> {
     editorHost.innerHTML = '';
     vditor = await initVditor(value, next);
     persist(value);
-    toast(`已切换：${next.toUpperCase()}`, 'info', 1500);
+    toast(`已切换到 ${MODE_LABEL[next]}`, 'info', 1500);
   }
 
   function onCycleTheme(): void {
@@ -259,7 +258,7 @@ export async function bootstrap(root: HTMLElement): Promise<void> {
     setThemeBadge(toolbarRefs, themeLabel(r.theme));
     persist(vditor?.getValue() ?? '');
     if (reloadNeeded) {
-      toast('设置已保存，2 秒后刷新页面以应用扩展…', 'info', 1800);
+      toast('设置已保存，正在刷新以应用扩展功能…', 'info', 1800);
       setTimeout(() => window.location.reload(), 2000);
     } else {
       toast('设置已保存', 'success');

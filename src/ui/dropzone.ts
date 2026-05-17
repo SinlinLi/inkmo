@@ -3,7 +3,7 @@
 export function installDropzone(onDrop: (file: File) => void): HTMLElement {
   const el = document.createElement('div');
   el.className = 'dropzone';
-  el.textContent = '松开以打开文件 (.md / .markdown / .txt)';
+  el.textContent = '松开导入文件 · 支持 .md / .markdown / .txt';
   el.setAttribute('aria-hidden', 'true');
   document.body.appendChild(el);
 

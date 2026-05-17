@@ -43,15 +43,16 @@ export function openSettings(current: Settings): Promise<Settings | null> {
     };
 
     body.appendChild(row('主题', themeSel));
-    body.appendChild(row('启用 KaTeX 数学公式（重载页面后生效）', mathChk));
-    body.appendChild(row('启用 Mermaid 图表（重载页面后生效）', mermaidChk));
+    body.appendChild(row('数学公式 (KaTeX)', mathChk));
+    body.appendChild(row('图表 (Mermaid)', mermaidChk));
     body.appendChild(row('日志级别', logSel));
 
     const note = document.createElement('p');
     note.style.fontSize = '12px';
     note.style.color = 'var(--fg-muted)';
-    note.style.marginTop = '12px';
-    note.textContent = '所有设置保存在本机浏览器，永不上传。';
+    note.style.marginTop = '14px';
+    note.style.lineHeight = '1.5';
+    note.innerHTML = '数学公式和图表开关需刷新页面才生效。<br/>所有设置保存在本机浏览器，永不上传。';
     body.appendChild(note);
 
     openDialog({

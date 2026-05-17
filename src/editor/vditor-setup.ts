@@ -38,7 +38,7 @@ export function createVditor(opts: VditorInitOpts): Promise<VditorWrapper> {
       cdn: '/vditor', // local-served Vditor assets
       width: '100%',
       height: '100%',
-      placeholder: '开始书写… 支持拖放 / 粘贴 Markdown 文件',
+      placeholder: '开始书写… 也可拖放 .md 文件到这里',
       theme: resolvedTheme === 'dark' ? 'dark' : 'classic',
       preview: {
         // Hide Vditor's default preview-pane action buttons (responsive-toggle

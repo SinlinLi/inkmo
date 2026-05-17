@@ -41,6 +41,6 @@ export function openHelp(): Promise<boolean> {
   const rows = SHORTCUT_TABLE.map(
     ([desc, keys]) => `<div class="shortcut-row"><span>${desc}</span><kbd>${keys}</kbd></div>`,
   ).join('');
-  body.innerHTML = `<p style="margin-top:0">键盘快捷键</p>${rows}`;
+  body.innerHTML = rows;
   return openDialog({ title: '快捷键', body, cancelLabel: null, okLabel: '知道了' });
 }

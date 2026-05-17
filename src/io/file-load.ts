@@ -44,9 +44,8 @@ export function readFile(file: File): Promise<LoadedFile> {
       return;
     }
     if (file.size > MAX_BYTES) {
-      reject(
-        new FileLoadError(`文件过大: ${(file.size / 1024 / 1024).toFixed(2)} MB > 5 MB`, 'SIZE'),
-      );
+      const sizeMb = (file.size / 1024 / 1024).toFixed(2);
+      reject(new FileLoadError(`文件过大 (${sizeMb} MB)，上限 5 MB`, 'SIZE'));
       return;
     }
     const reader = new FileReader();
