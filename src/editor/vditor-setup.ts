@@ -41,6 +41,10 @@ export function createVditor(opts: VditorInitOpts): Promise<VditorWrapper> {
       placeholder: '开始书写… 支持拖放 / 粘贴 Markdown 文件',
       theme: resolvedTheme === 'dark' ? 'dark' : 'classic',
       preview: {
+        // Hide Vditor's default preview-pane action buttons (responsive-toggle
+        // and "复制到知乎 / 公众号" platform-specific HTML copies). These are
+        // Chinese-content-platform helpers we don't need in a generic editor.
+        actions: [],
         theme: { current: resolvedTheme === 'dark' ? 'dark' : 'light' },
         hljs: { style: resolvedTheme === 'dark' ? 'github-dark' : 'github', lineNumber: true },
         math: { engine: 'KaTeX' },
