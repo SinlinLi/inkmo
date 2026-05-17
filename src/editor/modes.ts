@@ -1,4 +1,14 @@
-// Editor-mode cycle: WYSIWYG → IR → SV → WYSIWYG …
+// Editor-mode cycle.
+//
+// The Vditor library has three internal modes: WYSIWYG / IR (Instant Render) /
+// SV (Split View). We expose only IR and SV to keep the UX choice clear:
+//
+//   - IR : Markdown markers stay visible, but their rendered styling appears
+//          inline alongside them. Best of both worlds for most authors.
+//   - SV : Classic split editor + preview.
+//
+// WYSIWYG (markers hidden, "Typora-style") is still supported by Vditor — any
+// state persisted from an older session falls through to IR on next cycle.
 
 import type { EditorMode } from '../lib/storage';
 
@@ -10,12 +20,13 @@ export const MODE_LABEL: Record<EditorMode, string> = {
 
 export function nextMode(current: EditorMode): EditorMode {
   switch (current) {
-    case 'wysiwyg':
-      return 'ir';
     case 'ir':
       return 'sv';
     case 'sv':
+      return 'ir';
+    case 'wysiwyg':
     default:
-      return 'wysiwyg';
+      // Legacy wysiwyg state from older deployments → migrate to ir on toggle.
+      return 'ir';
   }
 }

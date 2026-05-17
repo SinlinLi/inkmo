@@ -75,11 +75,16 @@ body {
   white-space: nowrap;
   transition:
     background 0.15s,
-    border-color 0.15s;
+    border-color 0.15s,
+    color 0.15s;
 }
 
 .tb-btn:hover {
   background: var(--hover);
+}
+
+.tb-btn:active {
+  transform: translateY(0.5px);
 }
 
 .tb-btn:focus-visible {
@@ -88,8 +93,28 @@ body {
 }
 
 .tb-btn.tb-icon {
-  padding: 6px 8px;
-  font-size: 16px;
+  padding: 7px 8px;
+}
+
+.tb-ico {
+  display: inline-flex;
+  align-items: center;
+  color: var(--fg-muted);
+}
+
+.tb-btn:hover .tb-ico,
+.tb-btn:focus-visible .tb-ico {
+  color: var(--fg);
+}
+
+.tb-ico svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.tb-label {
+  font-size: 13px;
 }
 
 .tb-badge {

@@ -2,6 +2,7 @@
 
 import type { EditorMode } from '../lib/storage';
 import { MODE_LABEL } from '../editor/modes';
+import { ICONS, type IconName } from './icons';
 
 export interface ToolbarHandlers {
   onNew(): void;
@@ -22,6 +23,7 @@ export interface ToolbarRefs {
 }
 
 function btn(
+  icon: IconName | null,
   label: string,
   title: string,
   onClick: () => void,
@@ -30,7 +32,10 @@ function btn(
   const b = document.createElement('button');
   b.type = 'button';
   b.className = `tb-btn ${extraClass}`.trim();
-  b.innerHTML = label;
+  const parts: string[] = [];
+  if (icon) parts.push(`<span class="tb-ico" aria-hidden="true">${ICONS[icon]}</span>`);
+  if (label) parts.push(`<span class="tb-label">${label}</span>`);
+  b.innerHTML = parts.join('');
   b.title = title;
   b.setAttribute('aria-label', title);
   b.addEventListener('click', onClick);
@@ -46,15 +51,15 @@ export function buildToolbar(h: ToolbarHandlers): ToolbarRefs {
   // Left group: file ops
   const left = document.createElement('div');
   left.className = 'tb-group';
-  left.appendChild(btn('📄 新建', '新建 (Alt+N)', h.onNew));
-  left.appendChild(btn('📂 打开', '打开本地文件 (Alt+O)', h.onOpen));
-  left.appendChild(btn('💾 下载', '下载 .md (Ctrl+Shift+S)', h.onDownload));
-  left.appendChild(btn('📑 PDF', '导出 PDF (Ctrl+Shift+E)', h.onExportPdf));
+  left.appendChild(btn('new', '新建', '新建 (Alt+N)', h.onNew));
+  left.appendChild(btn('open', '打开', '打开本地文件 (Alt+O)', h.onOpen));
+  left.appendChild(btn('download', '下载', '下载 .md (Ctrl+Shift+S)', h.onDownload));
+  left.appendChild(btn('print', 'PDF', '导出 PDF (Ctrl+Shift+E)', h.onExportPdf));
 
   const sep = document.createElement('div');
   sep.className = 'tb-sep';
 
-  // Center group: brand
+  // Center: brand wordmark
   const brand = document.createElement('div');
   brand.className = 'tb-brand';
   brand.textContent = 'Markdown Editor';
@@ -63,25 +68,25 @@ export function buildToolbar(h: ToolbarHandlers): ToolbarRefs {
   const right = document.createElement('div');
   right.className = 'tb-group tb-right';
 
+  // Mode button: icon + label + badge
   const modeBadge = document.createElement('span');
   modeBadge.className = 'tb-badge';
-  modeBadge.textContent = MODE_LABEL.wysiwyg;
-
-  const modeBtn = btn('🎨 模式', '切换编辑模式 (Ctrl+Shift+M)', h.onCycleMode);
+  modeBadge.textContent = MODE_LABEL.ir;
+  const modeBtn = btn('layout', '模式', '切换编辑模式 (Ctrl+Shift+M)', h.onCycleMode);
   modeBtn.appendChild(modeBadge);
 
+  // Theme button: icon + label + badge
   const themeBadge = document.createElement('span');
   themeBadge.className = 'tb-badge';
   themeBadge.textContent = '自动';
-
-  const themeBtn = btn('🌓 主题', '切换主题 (Ctrl+Shift+T)', h.onCycleTheme);
+  const themeBtn = btn('theme', '主题', '切换主题 (Ctrl+Shift+T)', h.onCycleTheme);
   themeBtn.appendChild(themeBadge);
 
   right.appendChild(modeBtn);
   right.appendChild(themeBtn);
-  right.appendChild(btn('⚙️', '设置 (Ctrl+,)', h.onSettings, 'tb-icon'));
-  right.appendChild(btn('❓', '快捷键 (Ctrl+/)', h.onHelp, 'tb-icon'));
-  right.appendChild(btn('ℹ️', '关于', h.onAbout, 'tb-icon'));
+  right.appendChild(btn('settings', '', '设置 (Ctrl+,)', h.onSettings, 'tb-icon'));
+  right.appendChild(btn('help', '', '快捷键 (Ctrl+/)', h.onHelp, 'tb-icon'));
+  right.appendChild(btn('info', '', '关于', h.onAbout, 'tb-icon'));
 
   root.appendChild(left);
   root.appendChild(sep);

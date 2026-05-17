@@ -27,7 +27,7 @@ export interface PersistedState {
 
 export const DEFAULT_SETTINGS: Settings = {
   theme: 'auto',
-  editorMode: 'wysiwyg',
+  editorMode: 'ir',
   enableMath: false,
   enableMermaid: false,
   logLevel: 'INFO',

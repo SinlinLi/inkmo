@@ -2,10 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { MODE_LABEL, nextMode } from '../../src/editor/modes';
 
 describe('nextMode', () => {
-  it('cycles wysiwyg -> ir -> sv -> wysiwyg', () => {
-    expect(nextMode('wysiwyg')).toBe('ir');
+  it('cycles ir <-> sv as the user-facing pair', () => {
     expect(nextMode('ir')).toBe('sv');
-    expect(nextMode('sv')).toBe('wysiwyg');
+    expect(nextMode('sv')).toBe('ir');
+  });
+
+  it('migrates legacy wysiwyg state to ir on next toggle', () => {
+    expect(nextMode('wysiwyg')).toBe('ir');
   });
 });
 
