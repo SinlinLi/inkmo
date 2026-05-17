@@ -1,0 +1,34 @@
+/* Vditor visual tweaks so the embedded editor matches our shell theme. */
+
+.editor-host .vditor {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--bg) !important;
+}
+
+.editor-host .vditor-toolbar {
+  /* Hide Vditor's own toolbar — we render our own */
+  display: none !important;
+}
+
+.editor-host .vditor-content {
+  background: var(--bg) !important;
+}
+
+.editor-host .vditor-counter {
+  display: none !important;
+}
+
+.editor-host .vditor-wysiwyg,
+.editor-host .vditor-ir,
+.editor-host .vditor-sv {
+  padding: 24px 8% !important;
+}
+
+@media (max-width: 640px) {
+  .editor-host .vditor-wysiwyg,
+  .editor-host .vditor-ir,
+  .editor-host .vditor-sv {
+    padding: 16px 4% !important;
+  }
+}

@@ -1,0 +1,325 @@
+@import './themes.css';
+@import './vditor-overrides.css';
+@import './print.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* ─── Toolbar ─── */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg-toolbar);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  flex-wrap: wrap;
+}
+
+.tb-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tb-right {
+  margin-left: auto;
+}
+
+.tb-sep {
+  flex: 1;
+}
+
+.tb-brand {
+  font-weight: 600;
+  color: var(--fg-muted);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.tb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--fg);
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.tb-btn:hover {
+  background: var(--hover);
+}
+
+.tb-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.tb-btn.tb-icon {
+  padding: 6px 8px;
+  font-size: 16px;
+}
+
+.tb-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 11px;
+  color: var(--fg-muted);
+  margin-left: 4px;
+}
+
+/* ─── Editor host ─── */
+
+.editor-host {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.editor-host > * {
+  height: 100%;
+}
+
+/* ─── Status bar ─── */
+
+.statusbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 4px 12px;
+  background: var(--bg-status);
+  border-top: 1px solid var(--border);
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+.sb-item b {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.sb-draft.is-busy::before {
+  content: '●';
+  color: var(--accent);
+  margin-right: 4px;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ─── Dropzone overlay ─── */
+
+.dropzone {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 132, 199, 0.08);
+  border: 3px dashed var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--accent);
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.dropzone.is-active {
+  opacity: 1;
+}
+
+/* ─── Toast ─── */
+
+.toast-stack {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  padding: 10px 16px;
+  border-radius: 6px;
+  background: var(--bg-alt);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 13px;
+  max-width: 360px;
+  opacity: 0;
+  transform: translateX(20px);
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+  cursor: pointer;
+}
+
+.toast-show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast-success {
+  border-left: 4px solid #16a34a;
+}
+.toast-warn {
+  border-left: 4px solid #d97706;
+}
+.toast-error {
+  border-left: 4px solid #dc2626;
+}
+.toast-info {
+  border-left: 4px solid var(--accent);
+}
+
+/* ─── Dialog ─── */
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.dialog {
+  background: var(--bg);
+  color: var(--fg);
+  padding: 20px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  max-width: 520px;
+  width: 90vw;
+  max-height: 80vh;
+  overflow: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.dialog h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.dialog kbd {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 12px;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.dialog .btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  color: var(--fg);
+  cursor: pointer;
+  font: inherit;
+}
+
+.dialog .btn-primary {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-color: var(--accent);
+}
+
+.dialog .shortcut-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.dialog .shortcut-row:last-child {
+  border-bottom: 0;
+}
+
+.dialog .form-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.dialog .form-row label {
+  flex: 1;
+}
+
+/* ─── Mobile ─── */
+
+@media (max-width: 640px) {
+  .toolbar {
+    padding: 6px 8px;
+    gap: 4px;
+  }
+  .tb-btn {
+    padding: 6px;
+  }
+  .tb-brand {
+    display: none;
+  }
+  .tb-badge {
+    display: none;
+  }
+}
