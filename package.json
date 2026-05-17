@@ -18,7 +18,8 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install --with-deps chromium",
-    "prebuild": "node scripts/copy-vditor-assets.mjs",
+    "notices": "node scripts/generate-notices.mjs",
+    "prebuild": "node scripts/copy-vditor-assets.mjs && node scripts/generate-notices.mjs",
     "predev": "node scripts/copy-vditor-assets.mjs"
   },
   "dependencies": {

@@ -22,6 +22,10 @@ COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 # Static assets
 COPY --from=build /app/dist /usr/share/nginx/html
 
+# Bundled third-party license texts (MIT/Apache/MPL attribution requirements).
+COPY --from=build /app/LICENSE /usr/share/doc/markdown-editor/LICENSE
+COPY --from=build /app/NOTICES.md /usr/share/doc/markdown-editor/NOTICES.md
+
 EXPOSE 80
 
 # nginx default CMD already runs in foreground via daemon off
