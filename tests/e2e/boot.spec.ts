@@ -10,7 +10,7 @@ test.describe('boot', () => {
     await page.goto('/');
 
     // Title
-    await expect(page).toHaveTitle(/Markdown Editor/);
+    await expect(page).toHaveTitle(/墨/);
 
     // Toolbar buttons (using aria-label for robustness)
     await expect(page.getByRole('button', { name: /新建/ })).toBeVisible();
@@ -27,7 +27,7 @@ test.describe('boot', () => {
     // Welcome doc actually rendered. Target the H1 by role (Vditor also mirrors the
     // text into a hidden outline panel — getByText alone matches both).
     await expect(
-      page.locator('.vditor').getByRole('heading', { level: 1, name: /欢迎使用 Markdown Editor/ }),
+      page.locator('.vditor').getByRole('heading', { level: 1, name: /欢迎使用 墨/ }),
     ).toBeVisible();
 
     // No console errors

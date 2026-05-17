@@ -4,7 +4,7 @@
 import { logger } from './logger';
 
 const log = logger.scope('storage');
-const KEY = 'mdeditor:state';
+const KEY = 'inkmo:state';
 const SCHEMA_VERSION = 1;
 
 export type ThemeMode = 'light' | 'dark' | 'auto';

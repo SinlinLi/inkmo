@@ -12,7 +12,7 @@ export interface LogEntry {
 }
 
 const LEVELS: Record<LogLevel, number> = { DEBUG: 0, INFO: 1, WARN: 2, ERROR: 3 };
-const STORAGE_KEY = 'mdeditor:logs';
+const STORAGE_KEY = 'inkmo:logs';
 const RING_SIZE = 200;
 
 let currentLevel: LogLevel = 'INFO';

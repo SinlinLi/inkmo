@@ -16,8 +16,8 @@ docker compose up -d
 ## 2. Docker 镜像
 
 ```bash
-docker build -t markdown-editor:0.1.0 .
-docker run -d -p 8080:80 --name markdown-editor markdown-editor:0.1.0
+docker build -t inkmo:0.1.0 .
+docker run -d -p 8080:80 --name inkmo inkmo:0.1.0
 ```
 
 镜像基于 `nginx:1.27-alpine`，多阶段构建产物约 30 MB（包含 Vditor lazy 资源），运行时内存 < 20 MB。
@@ -34,9 +34,9 @@ pnpm install
 pnpm run build
 
 # 把产物复制到服务器
-scp -r dist/ user@server:/var/www/markdown-editor/
+scp -r dist/ user@server:/var/www/inkmo/
 
-# 服务器：把 nginx/default.conf 中的 root 改成 /var/www/markdown-editor，然后 reload
+# 服务器：把 nginx/default.conf 中的 root 改成 /var/www/inkmo，然后 reload
 ```
 
 把 `nginx/default.conf` 整段复制到 nginx 的 `conf.d/` 或 sites-available/，调整 `server_name` 与 `root`。
@@ -111,7 +111,7 @@ curl -fsS http://localhost:8080/ > /dev/null && echo OK
 ```bash
 docker compose pull && docker compose up -d   # 镜像更新
 # 或
-git pull && pnpm run build && cp -r dist/* /var/www/markdown-editor/   # 手动
+git pull && pnpm run build && cp -r dist/* /var/www/inkmo/   # 手动
 ```
 
 `Cache-Control: no-cache` on `index.html` 保证用户下次刷新即可加载新版本。

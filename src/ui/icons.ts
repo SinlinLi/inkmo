@@ -22,8 +22,10 @@ export const ICONS = {
 
   info: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`,
 
-  // Brand mark: stylised "M↓" — a chevron-down inside a rounded square.
-  brand: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="17" rx="3"/><path d="M7 16V8l3 3.5L13 8v8" /><path d="M16 8v8m-1.6-2 1.6 2 1.6-2"/></svg>`,
+  // Brand mark: an ink drop (墨滴). Solid teardrop in `currentColor`
+  // (consumes `--accent`), with a small inner highlight to suggest the
+  // wet sheen of fresh ink.
+  brand: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="墨"><path d="M12 2.5C8.2 8.5 6.2 12.2 6.2 16a5.8 5.8 0 0 0 11.6 0c0-3.8-2-7.5-5.8-13.5z" fill="currentColor"/><path d="M14.2 13.8a3 3 0 0 1-2.4 2.7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0" fill="none"/><ellipse cx="10.4" cy="13.6" rx="1.1" ry="2" fill="white" fill-opacity="0.28"/></svg>`,
 } as const;
 
 export type IconName = keyof typeof ICONS;

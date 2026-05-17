@@ -43,8 +43,7 @@ const cycleTheme = (mode: ThemeMode): ThemeMode =>
 // Mobile breakpoint — must match the CSS @media query (720px).
 const MOBILE_MAX = 720;
 const isNarrow = (): boolean => typeof window !== 'undefined' && window.innerWidth <= MOBILE_MAX;
-const coerceModeForViewport = (m: EditorMode): EditorMode =>
-  isNarrow() && m === 'sv' ? 'ir' : m;
+const coerceModeForViewport = (m: EditorMode): EditorMode => (isNarrow() && m === 'sv' ? 'ir' : m);
 
 export async function bootstrap(root: HTMLElement): Promise<void> {
   log.info('app boot', {
@@ -266,7 +265,7 @@ export async function bootstrap(root: HTMLElement): Promise<void> {
   }
 
   // Expose for E2E tests
-  (window as unknown as { __mdeditor?: unknown }).__mdeditor = {
+  (window as unknown as { __inkmo?: unknown }).__inkmo = {
     getValue: () => vditor?.getValue() ?? '',
     setValue: (v: string) => vditor?.setValue(v),
     triggerExportPdf: () => onExportPdf(),

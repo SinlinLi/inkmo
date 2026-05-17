@@ -28,7 +28,7 @@ describe('storage', () => {
 
   it('discards state with mismatched schema version', () => {
     localStorage.setItem(
-      'mdeditor:state',
+      'inkmo:state',
       JSON.stringify({ schemaVersion: 999, draft: 'oops', settings: DEFAULT_SETTINGS }),
     );
     expect(loadState()).toBeNull();

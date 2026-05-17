@@ -113,9 +113,9 @@ export function createVditor(opts: VditorInitOpts): Promise<VditorWrapper> {
   });
 }
 
-export const WELCOME_DOC = `# 欢迎使用 Markdown Editor
+export const WELCOME_DOC = `# 欢迎使用 墨 (Inkmo)
 
-一个支持即时渲染的 Markdown 在线编辑器。**纯前端**，所有内容只保存在你本机的浏览器。
+一个中英文友好、支持即时渲染的 Markdown 在线编辑器。**纯前端**，所有内容只保存在你本机的浏览器。
 
 ## 主要功能
 
@@ -165,4 +165,8 @@ function hello(name: string): string {
 ---
 
 清空此欢迎文档：\`Alt+N\` 或工具栏「新建」按钮。
+
+---
+
+> 「墨」/ Inkmo · MIT License · 内容只在你本机
 `;

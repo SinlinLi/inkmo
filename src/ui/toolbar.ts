@@ -48,11 +48,11 @@ export function buildToolbar(h: ToolbarHandlers): ToolbarRefs {
   root.setAttribute('role', 'toolbar');
   root.setAttribute('aria-label', '编辑器工具栏');
 
-  // Brand: discreet mark + wordmark on the left, acts as visual anchor.
+  // Brand: ink-drop mark + 「墨」wordmark on the left, acts as visual anchor.
   const brand = document.createElement('div');
   brand.className = 'tb-brand';
-  brand.innerHTML = `<span class="tb-brand-mark" aria-hidden="true">${ICONS.brand}</span><span class="tb-brand-name">Markdown</span>`;
-  brand.title = 'Markdown Editor';
+  brand.innerHTML = `<span class="tb-brand-mark" aria-hidden="true">${ICONS.brand}</span><span class="tb-brand-name">墨</span>`;
+  brand.title = '墨 · Markdown 编辑器';
 
   const divider = document.createElement('div');
   divider.className = 'tb-divider';

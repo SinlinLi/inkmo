@@ -1,6 +1,6 @@
 # Third-Party Notices
 
-This file lists the runtime dependencies of `markdown-editor` v0.1.0 that
+This file lists the runtime dependencies of `inkmo` v0.1.0 that
 are bundled into the production build (`dist/`) and the Docker image, along
 with their original copyright notices and license texts.
 

@@ -52,7 +52,8 @@ export function openSettings(current: Settings): Promise<Settings | null> {
     note.style.color = 'var(--fg-muted)';
     note.style.marginTop = '14px';
     note.style.lineHeight = '1.5';
-    note.innerHTML = '数学公式和图表开关需刷新页面才生效。<br/>所有设置保存在本机浏览器，永不上传。';
+    note.innerHTML =
+      '数学公式和图表开关需刷新页面才生效。<br/>所有设置保存在本机浏览器，永不上传。';
     body.appendChild(note);
 
     openDialog({

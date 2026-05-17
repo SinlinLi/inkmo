@@ -87,11 +87,17 @@ h6 {
   align-items: center;
   gap: 8px;
   padding: 0 10px 0 4px;
-  font-size: 15px;
-  font-weight: 600;
   color: var(--fg);
-  letter-spacing: -0.01em;
   flex-shrink: 0;
+}
+
+.tb-brand-name {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0;
+  /* Optical adjustment: align the CJK char's optical center with the
+     ink-drop icon's center (CJK glyphs sit slightly below the baseline). */
+  transform: translateY(-1px);
 }
 
 .tb-brand-mark {

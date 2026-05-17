@@ -1,7 +1,7 @@
 {
-  "name": "markdown-editor",
+  "name": "inkmo",
   "version": "0.1.0",
-  "description": "A Typora-like WYSIWYG Markdown online editor — pure frontend, deploys to nginx.",
+  "description": "墨 (Inkmo) — Typora-like WYSIWYG Markdown editor for Chinese + English writers. Pure frontend, deploys to nginx.",
   "type": "module",
   "license": "MIT",
   "private": false,

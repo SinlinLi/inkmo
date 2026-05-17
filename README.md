@@ -1,8 +1,8 @@
-# Markdown Editor
+# 墨 · Inkmo
 
 [English](#english) · 中文（下方）
 
-A Typora-like, browser-based WYSIWYG Markdown editor. Pure frontend, zero backend, deploys to nginx.
+中英文友好的 Markdown 在线编辑器。Typora 式所见即所得 / 即时渲染 / 分屏三种模式，纯前端，部署到 nginx。
 
 <p align="center">
   <img src="docs/screenshot-light.png" alt="Light mode" width="49%" />
@@ -76,7 +76,7 @@ pnpm run preview     # http://localhost:4173
 ### 项目结构
 
 ```
-markdown-editor/
+inkmo/
 ├── src/             应用源码
 │   ├── editor/      Vditor 封装 / 主题 / 模式
 │   ├── io/          文件读写 / PDF 导出

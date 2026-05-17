@@ -28,8 +28,8 @@ test.describe('pdf export', () => {
 
     // Trigger via our test hook (avoids cross-platform shortcut handling differences)
     await page.evaluate(() => {
-      const w = window as unknown as { __mdeditor?: { triggerExportPdf(): Promise<void> } };
-      return w.__mdeditor?.triggerExportPdf();
+      const w = window as unknown as { __inkmo?: { triggerExportPdf(): Promise<void> } };
+      return w.__inkmo?.triggerExportPdf();
     });
 
     // Verify the hook captured the expected state

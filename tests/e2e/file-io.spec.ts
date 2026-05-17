@@ -29,8 +29,8 @@ test.describe('file io', () => {
 
     // Set editor content via our test hook
     await page.evaluate(() => {
-      const w = window as unknown as { __mdeditor?: { setValue(v: string): void } };
-      w.__mdeditor?.setValue('# Hello Download\n\nbody');
+      const w = window as unknown as { __inkmo?: { setValue(v: string): void } };
+      w.__inkmo?.setValue('# Hello Download\n\nbody');
     });
 
     const downloadPromise = page.waitForEvent('download');
