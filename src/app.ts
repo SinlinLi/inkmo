@@ -40,6 +40,12 @@ const themeLabel = (mode: ThemeMode): string =>
 const cycleTheme = (mode: ThemeMode): ThemeMode =>
   mode === 'auto' ? 'light' : mode === 'light' ? 'dark' : 'auto';
 
+// Mobile breakpoint — must match the CSS @media query (720px).
+const MOBILE_MAX = 720;
+const isNarrow = (): boolean => typeof window !== 'undefined' && window.innerWidth <= MOBILE_MAX;
+const coerceModeForViewport = (m: EditorMode): EditorMode =>
+  isNarrow() && m === 'sv' ? 'ir' : m;
+
 export async function bootstrap(root: HTMLElement): Promise<void> {
   log.info('app boot', {
     ua: navigator.userAgent,
@@ -49,6 +55,9 @@ export async function bootstrap(root: HTMLElement): Promise<void> {
   // ── Load persisted state
   const persisted: PersistedState | null = loadState();
   const settings: Settings = persisted?.settings ?? { ...DEFAULT_SETTINGS };
+  // Mobile viewports don't support SV — coerce on boot so the user never lands
+  // in a half-screen split they can't escape (mode toggle is hidden at ≤720px).
+  settings.editorMode = coerceModeForViewport(settings.editorMode);
   setLogLevel(settings.logLevel);
   applyTheme(settings.theme);
   const initial =
@@ -127,6 +136,27 @@ export async function bootstrap(root: HTMLElement): Promise<void> {
     setThemeBadge(toolbarRefs, themeLabel(currentTheme()));
     vditor?.applyTheme(resolved);
   });
+
+  // ── Viewport-resize fallback: if user crosses into mobile while in SV,
+  // demote to IR so they aren't stuck in a layout the toolbar can no longer toggle.
+  let lastNarrow = isNarrow();
+  window.addEventListener(
+    'resize',
+    () => {
+      const narrow = isNarrow();
+      if (narrow !== lastNarrow) {
+        lastNarrow = narrow;
+        if (narrow && currentSettings.editorMode === 'sv') {
+          log.info('viewport narrowed, falling back to IR', {
+            from: 'sv',
+            width: window.innerWidth,
+          });
+          void onCycleMode(); // sv → ir per modes.ts
+        }
+      }
+    },
+    { passive: true },
+  );
 
   // ── Dropzone
   installDropzone((file) => void onFile(file));

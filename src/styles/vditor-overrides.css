@@ -125,9 +125,17 @@
   box-sizing: content-box !important;
 }
 
-/* SV (split view) keeps the editor pane full-width so both columns get equal room. */
-.editor-host .vditor-sv {
-  padding: 24px 4% !important;
+/* SV (split view): exact 50/50 split between source and preview panes.
+   Vditor sets `width: 100%` on `.vditor-sv` which fights with its own
+   `flex: 1 1 0%`; force both panes to a fixed half-width to guarantee symmetry. */
+.editor-host .vditor-sv,
+.editor-host .vditor-preview {
+  flex: 0 0 50% !important;
+  width: 50% !important;
+  max-width: 50% !important;
+  min-width: 0 !important;
+  padding: 28px 32px !important;
+  box-sizing: border-box !important;
 }
 
 @media (max-width: 640px) {
@@ -135,8 +143,5 @@
   .editor-host .vditor-wysiwyg .vditor-reset {
     padding: 24px 16px !important;
     max-width: none !important;
-  }
-  .editor-host .vditor-sv {
-    padding: 16px !important;
   }
 }

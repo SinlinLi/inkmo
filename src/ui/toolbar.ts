@@ -73,11 +73,13 @@ export function buildToolbar(h: ToolbarHandlers): ToolbarRefs {
   const right = document.createElement('div');
   right.className = 'tb-group tb-right';
 
-  // Mode button: icon + label + badge
+  // Mode button: icon + label + badge.
+  // Hidden on mobile (≤720px) — narrow viewports only use IR.
   const modeBadge = document.createElement('span');
   modeBadge.className = 'tb-badge';
   modeBadge.textContent = MODE_LABEL.ir;
   const modeBtn = btn('layout', '模式', '切换编辑模式 (Ctrl+Shift+M)', h.onCycleMode);
+  modeBtn.classList.add('tb-mode-btn');
   modeBtn.appendChild(modeBadge);
 
   // Theme button: icon + label + badge

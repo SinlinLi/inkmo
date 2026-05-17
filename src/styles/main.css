@@ -517,6 +517,10 @@ h6 {
   .tb-divider {
     margin: 0 4px;
   }
+  /* Hide the SV mode toggle on mobile — narrow viewports use IR only. */
+  .tb-mode-btn {
+    display: none;
+  }
   .statusbar {
     font-size: 11px;
     gap: 12px;
