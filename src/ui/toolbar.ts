@@ -48,6 +48,16 @@ export function buildToolbar(h: ToolbarHandlers): ToolbarRefs {
   root.setAttribute('role', 'toolbar');
   root.setAttribute('aria-label', '编辑器工具栏');
 
+  // Brand: discreet mark + wordmark on the left, acts as visual anchor.
+  const brand = document.createElement('div');
+  brand.className = 'tb-brand';
+  brand.innerHTML = `<span class="tb-brand-mark" aria-hidden="true">${ICONS.brand}</span><span class="tb-brand-name">Markdown</span>`;
+  brand.title = 'Markdown Editor';
+
+  const divider = document.createElement('div');
+  divider.className = 'tb-divider';
+  divider.setAttribute('aria-hidden', 'true');
+
   // Left group: file ops
   const left = document.createElement('div');
   left.className = 'tb-group';
@@ -58,11 +68,6 @@ export function buildToolbar(h: ToolbarHandlers): ToolbarRefs {
 
   const sep = document.createElement('div');
   sep.className = 'tb-sep';
-
-  // Center: brand wordmark
-  const brand = document.createElement('div');
-  brand.className = 'tb-brand';
-  brand.textContent = 'Markdown Editor';
 
   // Right group: view
   const right = document.createElement('div');
@@ -88,9 +93,10 @@ export function buildToolbar(h: ToolbarHandlers): ToolbarRefs {
   right.appendChild(btn('help', '', '快捷键 (Ctrl+/)', h.onHelp, 'tb-icon'));
   right.appendChild(btn('info', '', '关于', h.onAbout, 'tb-icon'));
 
+  root.appendChild(brand);
+  root.appendChild(divider);
   root.appendChild(left);
   root.appendChild(sep);
-  root.appendChild(brand);
   root.appendChild(right);
 
   return { root, modeBadge, themeBadge };
